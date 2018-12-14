@@ -39,4 +39,3 @@ jobs:
 
       # run tests! and gen code coverage
       - run: mvn integration-test
-        
