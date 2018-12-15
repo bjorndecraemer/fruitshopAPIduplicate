@@ -1,6 +1,5 @@
 package bjorn.petprojects.fruitshopduplicate.services;
 
-import bjorn.petprojects.fruitshopduplicate.api.v1.mapper.CategoryMapper;
 import bjorn.petprojects.fruitshopduplicate.api.v1.model.CategoryDTO;
 import bjorn.petprojects.fruitshopduplicate.domain.Category;
 import bjorn.petprojects.fruitshopduplicate.repository.CategoryRepository;
@@ -18,18 +17,18 @@ import static org.mockito.Mockito.when;
 
 public class CategoryServiceImplTest {
 
-    public static final String NAME = "John";
-    public static final long ID = 1L;
+    private static final String NAME = "John";
+    private static final long ID = 1L;
     @Mock
     CategoryRepository categoryRepository;
 
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
-        categoryService = new CategoryServiceImpl(CategoryMapper.INSTANCE,categoryRepository);
+        categoryService = new CategoryServiceImpl(categoryRepository);
     }
 
     @Test
