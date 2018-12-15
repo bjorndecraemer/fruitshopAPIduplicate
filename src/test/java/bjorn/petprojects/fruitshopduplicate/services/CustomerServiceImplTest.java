@@ -1,7 +1,6 @@
 package bjorn.petprojects.fruitshopduplicate.services;
 
 import bjorn.petprojects.fruitshopduplicate.api.v1.model.CustomerDTO;
-import bjorn.petprojects.fruitshopduplicate.api.v1.model.CustomerListDTO;
 import bjorn.petprojects.fruitshopduplicate.domain.Customer;
 import bjorn.petprojects.fruitshopduplicate.repository.CustomerRepository;
 import org.junit.Before;
@@ -20,13 +19,13 @@ import static org.mockito.Mockito.when;
 
 public class CustomerServiceImplTest {
 
-    public static final Long ID = 1L;
-    public static final String FIRST_NAME = "John";
-    public static final String LAST_NAME = "Doe";
+    private static final Long ID = 1L;
+    private static final String FIRST_NAME = "John";
+    private static final String LAST_NAME = "Doe";
     @Mock
     CustomerRepository customerRepository;
 
-    CustomerService customerService;
+    private CustomerService customerService;
 
     @Before
     public void setUp(){
@@ -71,14 +70,19 @@ public class CustomerServiceImplTest {
         customer.setFirstName(FIRST_NAME);
         customer.setLastName(LAST_NAME);
 
-        List<Customer> customers = Arrays.asList(customer);
+        Customer customer2 = new Customer();
+        customer2.setId(2L);
+        customer2.setFirstName(FIRST_NAME+2);
+        customer2.setLastName(LAST_NAME+2);
+
+        List<Customer> customers = Arrays.asList(customer,customer2);
 
         when(customerRepository.findByFirstName(anyString())).thenReturn(customers);
         //When
         List<CustomerDTO> customerListDTO = customerService.findByFirstName(FIRST_NAME);
 
         //Then
-        assertEquals(1,customerListDTO.size());
+        assertEquals(2,customerListDTO.size());
 
     }
 }
