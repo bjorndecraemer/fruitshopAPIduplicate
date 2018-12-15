@@ -4,11 +4,12 @@ import bjorn.petprojects.fruitshopduplicate.api.v1.mapper.CustomerMapper;
 import bjorn.petprojects.fruitshopduplicate.api.v1.model.CustomerDTO;
 import bjorn.petprojects.fruitshopduplicate.domain.Customer;
 import bjorn.petprojects.fruitshopduplicate.repository.CustomerRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
@@ -34,7 +35,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO findByFirstName(String firstName) {
-        return customerMapper.customerToCustomerDTO(customerRepository.findByFirstName(firstName));
+    public List<CustomerDTO> findByFirstName(String firstName) {
+        return customerRepository.findByFirstName(firstName)
+                .stream()
+                .map(customerMapper::customerToCustomerDTO)
+                .collect(Collectors.toList());
     }
 }

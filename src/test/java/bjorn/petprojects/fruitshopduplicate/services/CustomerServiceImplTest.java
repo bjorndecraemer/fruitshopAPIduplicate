@@ -1,6 +1,7 @@
 package bjorn.petprojects.fruitshopduplicate.services;
 
 import bjorn.petprojects.fruitshopduplicate.api.v1.model.CustomerDTO;
+import bjorn.petprojects.fruitshopduplicate.api.v1.model.CustomerListDTO;
 import bjorn.petprojects.fruitshopduplicate.domain.Customer;
 import bjorn.petprojects.fruitshopduplicate.repository.CustomerRepository;
 import org.junit.Before;
@@ -70,13 +71,14 @@ public class CustomerServiceImplTest {
         customer.setFirstName(FIRST_NAME);
         customer.setLastName(LAST_NAME);
 
-        when(customerRepository.findByFirstName(anyString())).thenReturn(customer);
+        List<Customer> customers = Arrays.asList(customer);
+
+        when(customerRepository.findByFirstName(anyString())).thenReturn(customers);
         //When
-        CustomerDTO customerDTO = customerService.findByFirstName(FIRST_NAME);
+        List<CustomerDTO> customerListDTO = customerService.findByFirstName(FIRST_NAME);
 
         //Then
-        assertEquals(ID,customerDTO.getId());
-        assertEquals(FIRST_NAME,customerDTO.getFirstname());
-        assertEquals(LAST_NAME,customerDTO.getLastname());
+        assertEquals(1,customerListDTO.size());
+
     }
 }

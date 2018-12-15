@@ -7,5 +7,5 @@ import java.util.List;
 public interface CustomerService {
     List<CustomerDTO> findAllCustomers();
     CustomerDTO findById(Long id);
-    CustomerDTO findByFirstName(String firstName);
+    List<CustomerDTO> findByFirstName(String firstName);
 }
